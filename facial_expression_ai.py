@@ -95,7 +95,8 @@ emotions = ["DISGUST", "HAPPINESS", "NEUTRAL", "ANGER", "SURPRISE", "SADNESS", "
 model = tf.keras.models.load_model('./bin')
 
 def predictor(image_path):
-  image = detect_face(load_single_image(image_path))
+  images = load_images_from_folder(image_path)
+  image = detect_face(images[0])
   image = asarray(image)/255.0
 
   #print image
@@ -111,3 +112,6 @@ def predictor(image_path):
   print("Classifier:\n")
   print(mapper(asarray(results[0]) * 100,emotions))
   print("Prediction = " + emotions[np.argmax(results[0])])
+
+if __name__ == "__main__":
+    predictor("./predict")
